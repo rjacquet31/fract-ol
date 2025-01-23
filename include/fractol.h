@@ -21,7 +21,7 @@
 
 # define ESC 53
 # define UP 126
-# define D OWN 125
+# define DOWN 125
 # define LEFT 123
 # define RIGHT 124
 # define R 15
