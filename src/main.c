@@ -18,10 +18,10 @@ int	draw_fractal(t_fractal *fractal, char *query)
 		draw_mandelbrot(fractal);
 	else if (ft_strncmp(query, "julia", 6) == 0)
 	{
-		if (!fractal->cx && !fractal->cy)
+		if (!fractal->cx || !fractal->cy)
 		{
-			fractal->cx = 0;
-			fractal->cy = 0;
+			fractal->cx = -0.75;
+			fractal->cy = 0.05;
 		}
 		draw_julia(fractal);
 	}
@@ -41,8 +41,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putendl_fd("Usage: ./fractol <fractal>", 1);
-		ft_putendl_fd("Available fractals: mandelbrot, julia", 1);
+		ft_putendl_fd("Usage: ./fractol mandel or julia", 1);
 		return (0);
 	}
 	fractal = malloc(sizeof(t_fractal));

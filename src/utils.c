@@ -20,7 +20,7 @@ void	color_pixel(t_fractal *fractal, int x, int y, int color)
 	buffer[(y * fractal->size_line / 4) + x] = color;
 }
 
-void	generate_random_color(t_fractal *fractal)
+void	random_color(t_fractal *fractal)
 {
 	unsigned int		random;
 	static unsigned int	seed = 123456789;
@@ -43,24 +43,29 @@ double	generate_random_c(void)
 
 int	exit_fractal(t_fractal *fractal)
 {
-	mlx_destroy_image(fractal->mlx, fractal->image);
-	mlx_destroy_window(fractal->mlx, fractal->window);
-	free(fractal->mlx);
+	if (fractal->image)
+		mlx_destroy_image(fractal->mlx, fractal->image);
+	if (fractal->window)
+		mlx_destroy_window(fractal->mlx, fractal->window);
+	if (fractal->mlx)
+	{
+		mlx_destroy_display(fractal->mlx);
+		free(fractal->mlx);
+	}
 	free(fractal);
-	exit(1);
-	return (0);
+	exit(0);
 }
 
 void	change_iterations(t_fractal *fractal, int key_code)
 {
 	if (key_code == M)
 	{
-		if (fractal->max_iterations > 42)
-			fractal->max_iterations -= 42;
+		if (fractal->max_iterations > 40)
+			fractal->max_iterations -= 40;
 	}
 	else if (key_code == P)
 	{
-		if (fractal->max_iterations < 4200)
-			fractal->max_iterations += 42;
+		if (fractal->max_iterations < 4000)
+			fractal->max_iterations += 40;
 	}
 }

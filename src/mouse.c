@@ -56,7 +56,9 @@ void	set_random_julia(double *cx, double *cy)
 int	key_hook(int key_code, t_fractal *fractal)
 {
 	if (key_code == ESC)
-		exit(1);
+		exit_fractal(fractal);
+	else if (key_code == EVENT_CLOSE_BTN)
+		exit_fractal(fractal);
 	else if (key_code == LEFT)
 		fractal->offset_x -= 42 / fractal->zoom;
 	else if (key_code == RIGHT)
@@ -65,12 +67,12 @@ int	key_hook(int key_code, t_fractal *fractal)
 		fractal->offset_y -= 42 / fractal->zoom;
 	else if (key_code == DOWN)
 		fractal->offset_y += 42 / fractal->zoom;
+	else if (key_code == J)
+		set_random_julia(&fractal->cx, &fractal->cx);
 	else if (key_code == R)
 		init_fractal(fractal);
 	else if (key_code == C)
 		random_color(fractal);
-	else if (key_code == J)
-		set_random_julia(&fractal->cx, &fractal->cx);
 	else if (key_code == M || key_code == P)
 		change_iterations(fractal, key_code);
 	draw_fractal(fractal, fractal->name);
